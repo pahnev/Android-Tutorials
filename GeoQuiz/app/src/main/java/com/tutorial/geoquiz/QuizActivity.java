@@ -22,6 +22,8 @@ public class QuizActivity extends ActionBarActivity {
     private ImageButton mPreviousButton;
     private TextView mQuestionTextView;
 
+    private static final String KEY_INDEX = "index";
+
     private TrueFalse[] mQuestionBank = new TrueFalse[]{
             new TrueFalse(R.string.question_oceans, true),
             new TrueFalse(R.string.question_mideast, false),
@@ -39,6 +41,9 @@ public class QuizActivity extends ActionBarActivity {
         Log.d(TAG, "On create called");
         setContentView(R.layout.activity_quiz);
 
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
 
         mQuestionTextView = (TextView) findViewById(R.id.questionText);
         mQuestionTextView.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +111,13 @@ public class QuizActivity extends ActionBarActivity {
         }
 
         Toast.makeText(getApplicationContext(), messageResId, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSAveInstance");
+        outState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
     @Override
