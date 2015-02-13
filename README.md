@@ -1,12 +1,13 @@
 # Android-Tutorials
 
 ### Contents
- - **TeamTreehouse**
+- **TeamTreehouse**
     - [Blog Reader App](#blog-reader-android-app-treehouse)
     - [Self Destructing message app](#self-destructing-message-app-treehouse)
     - [Implementing Designs for Android](#implementing-designs-for-android-treehouse)
-  - **Big Nerd Ranch Guide**
-     - [GeoQuiz](#geoquiz)
+    
+- **Big Nerd Ranch Guide**
+    - [GeoQuiz](#geoquiz)
 
 
 
