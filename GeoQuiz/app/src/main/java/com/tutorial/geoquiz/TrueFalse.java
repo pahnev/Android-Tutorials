@@ -11,7 +11,7 @@ public class TrueFalse {
 
     public TrueFalse(int question, boolean trueQuestion) {
         setQuestion(question);
-        trueQuestion = isTrueQuestion();
+        trueQuestion = trueQuestion;
     }
 
     public int getQuestion() {

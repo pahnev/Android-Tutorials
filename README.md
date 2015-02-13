@@ -1,7 +1,20 @@
 # Android-Tutorials
 
-Blog Reader Android App  [treehouse](http://teamtreehouse.com/library/build-a-blog-reader-android-app)
--
+### Contents
+ - **TeamTreehouse**
+    - [Blog Reader App](#blog-reader-android-app)
+    - [Self Destructing message app](#self-destructing-message-app)
+    - [Implementing Designs for Android](#implementing-designs-for-android)
+  - **Big Nerd Ranch Guide**
+     - [GeoQuiz](#geoquiz)
+     - [Cache](#cache)
+     - [Core Data](#core-data)
+     - [Database](#database)
+
+
+
+#Blog Reader Android App  [treehouse](http://teamtreehouse.com/library/build-a-blog-reader-android-app)
+---
 
 **Challenge 1**
 > **Liven up your ListView**
@@ -58,8 +71,8 @@ Blog Reader Android App  [treehouse](http://teamtreehouse.com/library/build-a-bl
 ---
 ---
 
-Self Destructing message app [treehouse](http://teamtreehouse.com/library/build-a-selfdestructing-message-android-app)
--
+#Self Destructing message app [treehouse](http://teamtreehouse.com/library/build-a-selfdestructing-message-android-app)
+---
 **Challenge 1:**
 
 > **Alternative Login**
@@ -122,8 +135,8 @@ Self Destructing message app [treehouse](http://teamtreehouse.com/library/build-
 ---
 ---
 
-Implementing Designs for Android [treehouse](http://teamtreehouse.com/library/implementing-designs-for-android)
--
+#Implementing Designs for Android [treehouse](http://teamtreehouse.com/library/implementing-designs-for-android)
+---
 **Challenge 1:**
 
 > **Design Inspiration**
@@ -170,3 +183,13 @@ Implementing Designs for Android [treehouse](http://teamtreehouse.com/library/im
 ---
 ---
 ---
+
+#GeoQuiz
+**Challenge**
+
+> Cheaters never win. Unless, of course, they persistently circumvent your anti-cheating measures. Which they probably will. Because they are cheaters.
+> GeoQuiz has a few major loopholes. For this challenge, you will busy yourself with closing them. Here the loopholes are in ascending order, from easiest to hardest to close:
+> 
+> - Users can rotate **CheatActivity** after they cheat to clear out the cheating result.
+> - Once they get back, users can rotate QuizActivity to clear out mIsCheater.
+> - Users can press Next until the question they cheated on comes back around.

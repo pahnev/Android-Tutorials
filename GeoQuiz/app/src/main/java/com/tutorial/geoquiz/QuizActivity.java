@@ -1,10 +1,9 @@
 package com.tutorial.geoquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,11 +15,16 @@ public class QuizActivity extends ActionBarActivity {
 
     public static final String TAG = QuizActivity.class.getSimpleName();
 
+
     private Button mTrueButton;
     private Button mFalseButton;
+    private Button mCheatButton;
     private ImageButton mNextButton;
     private ImageButton mPreviousButton;
     private TextView mQuestionTextView;
+
+    private boolean isCheater = false;
+
 
     private static final String KEY_INDEX = "index";
 
@@ -79,6 +83,7 @@ public class QuizActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                isCheater = false;
                 updateQuestion();
             }
         });
@@ -89,9 +94,30 @@ public class QuizActivity extends ActionBarActivity {
             public void onClick(View v) {
                 int length = mQuestionBank.length;
                 mCurrentIndex = (mCurrentIndex + (length-1)) % length;
+                isCheater = false;
                 updateQuestion();
             }
         });
+
+        mCheatButton = (Button) findViewById(R.id.cheatButton);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
+                intent.putExtra(CheatActivity.EXTRA_ANSWER_IS_TRUE, answerIsTrue);
+                startActivityForResult(intent, 0);
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            isCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+        }
     }
 
     private void updateQuestion() {
@@ -99,15 +125,23 @@ public class QuizActivity extends ActionBarActivity {
         mQuestionTextView.setText(question);
     }
 
-    private void checkAnswer(boolean userPressed) {
+    private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
 
         int messageResId = 0;
 
-        if (userPressed == answerIsTrue) {
-            messageResId = R.string.correct_toast;
+        if (isCheater) {
+            if (userPressedTrue == answerIsTrue) {
+                messageResId = R.string.judgment_toast;
+//            } else {
+//                messageResId = R.string.incorrect_judgement_toast;
+            }
         } else {
-            messageResId = R.string.incorrect_toast;
+            if (userPressedTrue == answerIsTrue) {
+                messageResId = R.string.correct_toast;
+            } else {
+                messageResId = R.string.incorrect_toast;
+            }
         }
 
         Toast.makeText(getApplicationContext(), messageResId, Toast.LENGTH_SHORT).show();
@@ -155,25 +189,4 @@ public class QuizActivity extends ActionBarActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_quiz, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
