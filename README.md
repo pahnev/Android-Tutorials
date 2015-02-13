@@ -2,18 +2,15 @@
 
 ### Contents
  - **TeamTreehouse**
-    - [Blog Reader App](#blog-reader-android-app)
-    - [Self Destructing message app](#self-destructing-message-app)
-    - [Implementing Designs for Android](#implementing-designs-for-android)
+    - [Blog Reader App](#blog-reader-android-app-treehouse)
+    - [Self Destructing message app](#self-destructing-message-app-treehouse)
+    - [Implementing Designs for Android](#implementing-designs-for-android-treehouse)
   - **Big Nerd Ranch Guide**
      - [GeoQuiz](#geoquiz)
-     - [Cache](#cache)
-     - [Core Data](#core-data)
-     - [Database](#database)
 
 
 
-#Blog Reader Android App  [treehouse](http://teamtreehouse.com/library/build-a-blog-reader-android-app)
+#Blog Reader Android App [treehouse](http://teamtreehouse.com/library/build-a-blog-reader-android-app)
 ---
 
 **Challenge 1**
