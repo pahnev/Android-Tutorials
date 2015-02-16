@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.UUID;
 
 
 /**
@@ -22,10 +23,12 @@ import java.util.Locale;
  */
 public class CrimeFragment extends Fragment {
 
-    private Crime mCrime;
-    private EditText mTitleField;
-    private Button mDateButton;
-    private CheckBox mSolvedCheckBox;
+    public static final String EXTRA_CRIME_ID = "crime_id";
+
+    private Crime crime;
+    private EditText titleField;
+    private Button dateButton;
+    private CheckBox solvedCheckBox;
 
 
     public CrimeFragment() {
@@ -35,7 +38,9 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+        crime = new Crime();
+        UUID crimeId = (UUID) getArguments().getSerializable(EXTRA_CRIME_ID);
+        crime = CrimeLab.get(getActivity()).getCrime(crimeId);
     }
 
     @Override
@@ -44,8 +49,9 @@ public class CrimeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_crime, container, false);
 
-        mTitleField = (EditText) view.findViewById(R.id.crimeTitle);
-        mTitleField.addTextChangedListener(new TextWatcher() {
+        titleField = (EditText) view.findViewById(R.id.crimeTitle);
+        titleField.setText(crime.getTitle());
+        titleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -53,7 +59,7 @@ public class CrimeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mCrime.setTitle(s.toString());
+                crime.setTitle(s.toString());
 
             }
 
@@ -63,16 +69,17 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-        mDateButton = (Button) view.findViewById(R.id.crimeDateButton);
-        mDateButton.setText(getFormattedCrimeDate());
-        mDateButton.setEnabled(false);
+        dateButton = (Button) view.findViewById(R.id.crimeDateButton);
+        dateButton.setText(getFormattedCrimeDate());
+        dateButton.setEnabled(false);
 
-        mSolvedCheckBox = (CheckBox) view.findViewById(R.id.crimeSolvedCheckBox);
-        mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        solvedCheckBox = (CheckBox) view.findViewById(R.id.crimeSolvedCheckBox);
+        solvedCheckBox.setChecked(crime.isSolved());
+        solvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // Set crimes solved property
-                mCrime.setSolved(isChecked);
+                crime.setSolved(isChecked);
             }
         });
 
@@ -82,7 +89,17 @@ public class CrimeFragment extends Fragment {
     private String getFormattedCrimeDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("E, MMM dd, yyyy", Locale.ENGLISH);
 
-        return sdf.format(mCrime.getDate());
+        return sdf.format(crime.getDate());
+    }
+
+    public static CrimeFragment newInstance(UUID crimeId) {
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_CRIME_ID, crimeId);
+
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
 

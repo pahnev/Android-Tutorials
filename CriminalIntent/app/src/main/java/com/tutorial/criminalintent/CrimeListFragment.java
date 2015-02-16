@@ -1,6 +1,7 @@
 package com.tutorial.criminalintent;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -40,9 +41,20 @@ public class CrimeListFragment extends ListFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((CrimeAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Crime crime = ((CrimeAdapter) getListAdapter()).getItem(position);
+
+        Intent intent = new Intent(getActivity(), CrimeActivity.class);
+        intent.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getID());
+        startActivity(intent);
+
 
     }
 
