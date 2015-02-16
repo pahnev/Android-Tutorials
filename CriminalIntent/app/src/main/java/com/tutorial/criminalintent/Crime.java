@@ -19,6 +19,11 @@ public class Crime {
         setDate(new Date());
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -46,4 +51,6 @@ public class Crime {
     public void setSolved(boolean solved) {
         this.solved = solved;
     }
+
+
 }
